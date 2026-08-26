@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartBot v9</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">Smart<strong>Bot</strong> <span style="font-size:10px;opacity:0.6;font-weight:400">v9</span></span>
+    </div>
+    <div id="status-badge" class="badge idle">Idle</div>
+  </header>
+
+  <!-- Control Buttons -->
+  <section class="controls">
+    <button id="btn-record" class="btn btn-record">
+      <span class="btn-icon">⏺</span>
+      <span>Start Recording</span>
+    </button>
+    <button id="btn-stop" class="btn btn-stop" disabled>
+      <span class="btn-icon">⏹</span>
+      <span>Stop</span>
+    </button>
+  </section>
+
+  <!-- Playback Section -->
+  <section class="playback">
+    <button id="btn-play-current" class="btn btn-play" disabled>
+      <span class="btn-icon">▶</span>
+      <span>Play on Current Tab</span>
+    </button>
+    <button id="btn-play-all" class="btn btn-play-all" disabled>
+      <span class="btn-icon">⊞</span>
+      <span>Play on All Tabs (Right → Left)</span>
+    </button>
+  </section>
+
+  <!-- Stop Playback + Close Tab Options -->
+  <section class="playback-options">
+    <button id="btn-stop-play" class="btn btn-stop-play" disabled>
+      <span class="btn-icon">⏹</span>
+      <span>Stop Playback</span>
+    </button>
+    <label class="toggle-option" title="Close each tab automatically after its actions finish">
+      <div class="toggle-switch-sm">
+        <input type="checkbox" id="chk-close-tab">
+        <span class="toggle-track-sm"><span class="toggle-thumb-sm"></span></span>
+      </div>
+      <span class="toggle-option-label">Close tab when done</span>
+    </label>
+  </section>
+
+  <!-- v9: MacroAnalyzer page scan + debug panel -->
+  <section class="macro-section" style="padding:6px 12px;border-top:1px solid rgba(255,255,255,0.08)">
+    <button id="btn-scan-page" class="btn btn-scan" title="Run deep field scan on current tab and show all detected labels">
+      <span class="btn-icon">🔍</span>
+      <span>Scan Page Fields (v9)</span>
+    </button>
+    <div id="scan-results" class="scan-results hidden"></div>
+    <label class="toggle-option" title="Enable verbose MacroAnalyzer debug logs in console">
+      <div class="toggle-switch-sm">
+        <input type="checkbox" id="chk-debug-mode">
+        <span class="toggle-track-sm"><span class="toggle-thumb-sm"></span></span>
+      </div>
+      <span class="toggle-option-label">Debug labels in console</span>
+    </label>
+  </section>
+
+  <!-- Speed Control -->
+  <section class="speed-section">
+    <label class="speed-label">
+      <span>Speed</span>
+      <span id="speed-val">Normal</span>
+    </label>
+    <div class="speed-track">
+      <span class="speed-hint">Fast</span>
+      <input type="range" id="speed-slider" min="200" max="2000" step="100" value="800">
+      <span class="speed-hint">Slow</span>
+    </div>
+  </section>
+
+  <!-- Steps Panel -->
+  <section class="steps-section">
+    <div class="steps-header">
+      <span class="steps-title">Recorded Steps</span>
+      <span id="step-count" class="step-count">0</span>
+      <button id="btn-clear" class="btn-clear" title="Clear all steps">✕ Clear</button>
+    </div>
+    <div id="steps-list" class="steps-list">
+      <div class="empty-state">
+        <div class="empty-icon">🎬</div>
+        <div>No steps recorded yet</div>
+        <div class="empty-sub">Click Start Recording and interact with the page</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Rich Edit Modal ── -->
+  <div id="edit-modal" class="modal hidden">
+    <div class="modal-box">
+
+      <!-- Modal header -->
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <span id="modal-badge" class="step-badge"></span>
+          <span class="modal-title">Edit Step</span>
+        </div>
+        <button id="modal-close-x" class="modal-close-x" title="Close">✕</button>
+      </div>
+
+      <!-- Field label (editable) -->
+      <div class="modal-field-info">
+        <label class="modal-field-label-tag" for="modal-field-label">Label:</label>
+        <input id="modal-field-label" class="modal-field-label-input"
+               type="text" placeholder="Step label…" autocomplete="off"
+               title="Edit the label name for this step">
+        <span class="modal-label-hint" title="Label is used to find the element during replay">✦</span>
+      </div>
+
+      <!-- Dynamic editor area — filled by JS based on step type -->
+      <div id="modal-editor" class="modal-editor"></div>
+
+      <!-- Actions -->
+      <div class="modal-actions">
+        <button id="edit-cancel" class="btn-modal-cancel">Cancel</button>
+        <button id="edit-save" class="btn-modal-save">✓ Save &amp; Apply</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<script src="popup.js"></script>
+</body>
+</html>
