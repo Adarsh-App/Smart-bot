@@ -1,0 +1,73 @@
+#smartbot-overlay {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2147483647;
+  background: #0F0F13;
+  border: 1px solid #2A2A38;
+  border-radius: 12px;
+  padding: 10px 14px;
+  min-width: 180px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 11px;
+  color: #C8C8D8;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.3s;
+}
+
+#sbot-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+#sbot-icon { font-size: 13px; }
+#sbot-title { font-weight: 700; color: #FF6B2B; letter-spacing: 0.5px; }
+
+#sbot-status {
+  margin-left: auto;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.sbot-idle { background: #1E1E2A; color: #666; }
+.sbot-recording { background: rgba(255,60,60,0.2); color: #FF4444; animation: sbot-pulse 1s infinite; }
+.sbot-playing { background: rgba(80,200,120,0.2); color: #50C878; }
+.sbot-done { background: rgba(100,160,255,0.2); color: #64A0FF; }
+
+@keyframes sbot-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+#sbot-progress { margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
+#sbot-progress-bar {
+  flex: 1;
+  height: 3px;
+  background: #2A2A38;
+  border-radius: 3px;
+  overflow: hidden;
+}
+#sbot-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF6B2B, #FFB347);
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.3s;
+}
+#sbot-progress-text { font-size: 10px; color: #666; white-space: nowrap; }
+
+#sbot-last-action {
+  font-size: 10px;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
